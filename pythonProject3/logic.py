@@ -21,6 +21,9 @@ def collBack(alfa, Long, coefObj, duration):
 
     tMod = duration # время можелирования сигнала
 
+    initialTime = 0.2
+    koefHelPClassObj = tMod / initialTime
+
     t = np.arange(0, tMod, dt)  # массив времени работы активной ГАС
     nwin = t.size # кол-во отсчетов сигнала
 
@@ -100,7 +103,7 @@ def collBack(alfa, Long, coefObj, duration):
     showSignal.viewSetResponse(Wp, tAnt, indMax, indMin)
     showSignal.viewGridCoordinates(distance, peleng)
 
-    classGoals = ClassGoals().getClassName(tAnt, indMin, Wpt)
+    classGoals = ClassGoals().getClassName(tAnt, indMin, Wpt, koefHelPClassObj)
 
     return DataWorkAlgoritm(distance, peleng, classGoals)
 

@@ -94,12 +94,11 @@ class App:
         alfa = self.scalePeleng.get()
         duration = self.scaleDuration.get()
 
-
         coefObj = 1
         if type == 'Буй':
             coefObj = 1
         elif type == 'НПА':
-            coefObj = 4
+            coefObj = 3
         else:
             coefObj = 6
 
