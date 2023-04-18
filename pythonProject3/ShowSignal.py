@@ -3,17 +3,6 @@ import matplotlib.pyplot as plt
 import math
 
 class ShowSignal():
-    def getSpectrSiganl(self, f, t, nwin, n, freq):
-        sPrim = np.sin(2 * math.pi * f * t) + 5 * np.random.normal(0, 0.1, size=nwin)
-        sPrimF = np.fft.fft(sPrim, n)
-
-        fig = plt.figure()
-        plt.plot(freq[0:int(n / 2)], np.abs(sPrimF[0:int(n / 2)]))
-        plt.title('Спектр сигнала')
-        plt.xlabel('Частота, Гц')
-        fig.savefig('spectr.png', dpi=65)
-        # plt.show()
-
     def viewSignal(self, tAnt, sMod):
         fig = plt.figure()
         plt.plot(tAnt, sMod)
