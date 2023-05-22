@@ -47,20 +47,25 @@ class ShowSignal():
         elif classGoals == 'АПЛ':
             numHighlights = 15
 
+        coef = 0
+        if peleng < 0:
+            coef = -1
+        else:
+            coef = 1
+
+        step = 5
+
         fig = plt.figure()
         xAnt = [0, 0]
         yAnt = [distance * np.sin(np.deg2rad(peleng)),
                     distance * np.cos(np.deg2rad(peleng))]
-
         plt.plot(xAnt[0], xAnt[1], 'or', label='Антенна')
-
-        step = 5
         for i in range(0, numHighlights):
             if i == 0:
-                plt.plot(yAnt[0], yAnt[1], 'ob', linewidth=2, label='Цель')
+                plt.plot(yAnt[0], yAnt[1], 'ob', linewidth=2, label=classGoals)
             else:
-                plt.plot(yAnt[0] - step, yAnt[1] - step, 'ob', linewidth=1)
-                plt.plot(yAnt[0] + step, yAnt[1] + step, 'ob', linewidth=1)
+                plt.plot(yAnt[0] - step, yAnt[1] - coef * step, 'ob', linewidth=1)
+                plt.plot(yAnt[0] + step, yAnt[1] + coef * step, 'ob', linewidth=1)
 
             step += 5
 
