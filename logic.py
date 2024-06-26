@@ -11,7 +11,7 @@ from FrequencyDomain import *
 from ClassGoals import *
 from DataWorkAlgoritm import *
 
-def collBack(alfa, Long, coefObj):
+def collBack(alfa, Long, coefObj, duration):
     c = 1500  # скорость звука
     d = 0.2  # расстояние между приемными элементами
     M = 30  # кол-во приемных элементов
@@ -19,8 +19,14 @@ def collBack(alfa, Long, coefObj):
     fd = 10000  # частота дискретизации
     dt = 1 / fd  # время 1 отсчета
 
-    nwin = 2000 # кол-во отсчетов сигнала
-    t = np.linspace(0, 0.2, nwin) # массив сигнала
+    tMod = duration # время можелирования сигнала
+
+    initialTime = 0.2
+    koefHelPClassObj = tMod / initialTime
+
+    t = np.arange(0, tMod, dt)  # массив времени работы активной ГАС
+    nwin = t.size # кол-во отсчетов сигнала
+
 
     f = 2000  # частота сигнала
     fn = 1900  # нижняя частота пропускания
@@ -57,8 +63,6 @@ def collBack(alfa, Long, coefObj):
     sMod = Snoise[0]  # данные для нахождения сигнала на фоне шума
 
     showSignal = ShowSignal()
-
-    showSignal.getSpectrSiganl(f, t, nwin, n, freq)
     showSignal.viewSignal(tAnt, sMod)
 
     indSig = IndSig()
@@ -97,9 +101,8 @@ def collBack(alfa, Long, coefObj):
     peleng = int(b[np.argmax(Wpt)]) # пеленг
 
     showSignal.viewSetResponse(Wp, tAnt, indMax, indMin)
-    showSignal.viewGridCoordinates(distance, peleng)
-
-    classGoals = ClassGoals().getClassName(tAnt, indMin, Wpt)
+    classGoals = ClassGoals().getClassName(tAnt, indMin, Wpt, koefHelPClassObj)
+    showSignal.viewGridCoordinates(distance, peleng, classGoals)
 
     return DataWorkAlgoritm(distance, peleng, classGoals)
 
